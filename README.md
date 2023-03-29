@@ -7,4 +7,4 @@ En caso de tener errores:
 -pip3 install psycopg2
 
 Instalar tailwind
-npm install -D tailwindcss
+-npm install -D tailwindcss
