@@ -5,3 +5,6 @@ En caso de tener errores:
 
 -sudo apt install python3-dev libpq-dev
 -pip3 install psycopg2
+
+Instalar tailwind
+npm install -D tailwindcss
