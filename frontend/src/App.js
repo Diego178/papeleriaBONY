@@ -1,20 +1,28 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Routes } from "react-router-dom";
 import Navbar from './pages/Navbar';
 import Inicio from './pages/Inicio';
 import Ofertas from './pages/Ofertas';
 import Mayoreo from './pages/Mayoreo';
+import Carrito from './pages/Carrito';
+import Registrarse from './pages/Registrarse';
+import Login from './pages/Login';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Navbar />
-          <Switch>
-            <Route path='/Inicio' exact component={Inicio} />
-            <Route path='/Ofertas' component={Ofertas} />
-            <Route path='/Mayoreo' omponent={Mayoreo} />
-          </Switch>
+          <Routes>
+            <Route path="/Inicio" element={<Inicio />} />
+            <Route path="/Ofertas" element={<Ofertas />} />
+            <Route path="/Mayoreo" element={<Mayoreo />} />
+            <Route path="/Carrito" element={<Carrito />} />
+            <Route path="/Registrarse" element={<Registrarse />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="*" element={<h1>Not Found</h1>} />
+          </Routes>
       </Router>
     </div>
   );
