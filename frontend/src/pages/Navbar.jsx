@@ -1,45 +1,48 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+const imagen = require.context('../assets/', true);
+
 
 const Navbar = () => {
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
+      <nav className="bg-gray-800">
+        <div className="relative flex h-16 items-center justify-between">
           <Link to='/Inicio'>
-            <img src="../lapiz.png" width="50"/>
+
+            <img 
+            className="w-11 h-11 rounded-full mx-auto"  
+            src={imagen(`./lapiz.jpg`)}
+            width="50"/>
+
           </Link>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mx-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to='./Inicio'>Inicio</Link>
-              </li>
-              <li className="nav-item">
-              <Link className="nav-link" to='./Ofertas'>Ofertas</Link>
-              </li>
-              <li className="nav-item">
-              <Link className="nav-link" to='/Mayoreo'>Mayoreo</Link>
-              </li>
-              
-            </ul>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="#">Action</a></li>
-                  <li><a className="dropdown-item" href="#">Another action</a></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><a className="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
+          <div className="hidden sm:ml-6 sm:block">
+            <div className="flex space-x-4">
+              <Link className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                to='./Inicio'>Inicio</Link>
+
+              <Link className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+               to='./Ofertas'>Ofertas</Link>
+
+              <Link className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+               to='/Mayoreo'>Mayoreo</Link>
+            </div>
           </div>
-        </div>
+
+            <div className="flex-1 align-content: flex-end">
+              <div className="flex justify-end space-x-4">
+                <Link className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" to='/Registrarse'>Registrarse</Link>
+
+
+                <Link className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" to='/Login'>Login</Link>
+              
+
+                <Link to='/Carrito'>
+                  <img src={imagen(`./carrito.png`)}width="50"/>
+                </Link>
+                </div>
+            </div>
+          </div>
       </nav>
-    </div>
   )
 }
 

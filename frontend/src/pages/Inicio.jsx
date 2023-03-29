@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 const Inicio = () => {
   return (
-    <div>Inicio</div>
+      <div>Esto es el inicio</div>
+
   )
 }
 
