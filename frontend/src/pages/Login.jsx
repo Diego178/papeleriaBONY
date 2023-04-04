@@ -1,39 +1,107 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Modal from './ModalError';
 import { Link } from 'react-router-dom'
+import { validateEmail, validateField } from './Hook/useValidation';
+import useForm from './Hook/useForm';
+import Registrarse from './Registrarse';
+
+
 
 const Login = () => {
-  return (
-    <form className="max-w-xl justify-center">
-      <div className=" max-w-md justify-self-center">
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Iniciar Sesion</h2>
+  const [estado, setEstado] = useState(false);
 
-            <div className="sm:col-span-4">
-              <label for="email" className="block text-sm font-medium leading-6 text-gray-900">Correo Electronico</label>
+    const { values, setFieldValue, errors, handleSubmit } = useForm({
+     initialValues: {
+       email: '',
+       pass: ''
+     },
+     validate: (property, value) => {
+       const errorObj = {};
+ 
+       switch (property) {
+         case 'pass':
+           const testName = validateField({
+             pass: property,
+             value,
+             required: 'Por favor ingresa una contrasenia.',
+             min: 8,
+             shortValue: 'Ingresa un valor menor a 8 carácteres'
+           });
+           Object.assign(errorObj, testName);
+           break;
+         case 'email':
+           const testEmail = validateEmail({
+             value,
+             required: 'Por favor ingresa un email',
+             validEmail: 'El email que has ingresado no es correcto'
+           });
+           Object.assign(errorObj, testEmail);
+           break;
+       }
+ 
+       return errorObj;
+       
+     },
+     onSubmit: ({
+       values,
+       resetForm
+     }) => {
+       alert('Estas adentro');
+       resetForm();
+     }
+   })
+
+   return (
+    <div className="w-full h-full flex items-center justify-center h-screen">
+        <form onSubmit={handleSubmit} className="flex-col space-x-1 space-y-4 w-4/12 h-4/6 order-black border-2 rounded-2xl shadow-2xl">
+          <br/>
+          <h1 className="text-3xl font-style: italic font-semibold text-blue-600">Iniciar Sesion</h1>
+          <h2 className="text-sm font-semibold text-gray-400">Porfavor ingresa los datos solicitados</h2>
+          <input
+            type="text"
+            value={values.email}
+            placeholder="Ingresa un email"
+            onChange={e => setFieldValue('email', e.target.value)}
+            className="appearance-none border-b-2"
+            />
+          <br/>
+          {errors.email && <span className="text-xs text-red-600 place-self-center">{errors.email}</span>}
+
+          <input
+            type="password"
+            value={values.pass}
+            //  className="textInput"
+            placeholder="Ingresa una contrasenia"
+            onChange={e => setFieldValue('pass', e.target.value)}
+            className="appearance-none border-b-2"
+          />
+          <br/>
+          {errors.pass && <span className="text-xs text-red-600 place-self-center">{errors.pass}</span>}
+          
+          <br/>
+          
+          <button 
+          type="submit" 
+          id="button"
+          onClick={() => {
+              setEstado(!estado);
+          }}
+          className="inline-flex w-fit justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+          >Enviar</button>
+
+          <Modal
+              estadoVentana = {estado}
+              cambiarEstado = {setEstado}>
+              <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">Error</h3>
               <div className="mt-2">
-                <input id="email" name="email" type="email" autocomplete="email" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <p className="text-sm text-gray-500"><br/>{errors.email}<br/>{errors.pass}</p>
               </div>
-            </div>
-
-            <div className="sm:col-span-4">
-              <label for="password" className="block text-sm font-medium leading-6 text-gray-900">Contrasenia</label>
-              <div className="mt-2">
-                <input id="password" name="password" type="password" autocomplete="password" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-              </div>
-            </div>
-
-            <div className="mt-6 flex items-center justify-center gap-x-6">
-              <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Iniciar sesion</button>
-            </div>
-
-            <div className="flex items-center justify-center gap-x-1">
-              <h2 className="text-base font-semibold leading-7 text-gray-900">¿No tienes cuenta?</h2>
-              <Link className="text-base font-semibold leading-7 text-blue-600" to='/Registrarse'>Únete</Link>
-              </div>
-
-          </div>
-        </div>
-    </form>
+              </Modal>
+              <br/>
+          <a>Aun no tienes cuenta?</a>
+          <Link className="text-blue-500" to="/Registrarse" >Registrate</Link>
+        </form>
+      </div>
   )
 }
 

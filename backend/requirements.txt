@@ -6,3 +6,5 @@ Pillow==9.4.0
 django-storages==1.13.2
 django-ckeditor==6.5.1
 psycopg2==2.9.5
+mysqlclient==2.1.1
+mysql-connector-python==8.0.32

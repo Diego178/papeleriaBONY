@@ -4,7 +4,7 @@ import { Routes } from "react-router-dom";
 import Navbar from './pages/Navbar';
 import Inicio from './pages/Inicio';
 import Ofertas from './pages/Ofertas';
-import Mayoreo from './pages/Mayoreo';
+import Contacto from './pages/Contacto';
 import Carrito from './pages/Carrito';
 import Registrarse from './pages/Registrarse';
 import Login from './pages/Login';
@@ -17,7 +17,7 @@ function App() {
           <Routes>
             <Route path="/Inicio" element={<Inicio />} />
             <Route path="/Ofertas" element={<Ofertas />} />
-            <Route path="/Mayoreo" element={<Mayoreo />} />
+            <Route path="/Contacto" element={<Contacto />} />
             <Route path="/Carrito" element={<Carrito />} />
             <Route path="/Registrarse" element={<Registrarse />} />
             <Route path="/Login" element={<Login />} />
