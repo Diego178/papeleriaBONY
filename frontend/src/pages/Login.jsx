@@ -3,12 +3,27 @@ import Modal from './ModalError';
 import { Link } from 'react-router-dom'
 import { validateEmail, validateField } from './Hook/useValidation';
 import useForm from './Hook/useForm';
-import Registrarse from './Registrarse';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Login = () => {
   const [estado, setEstado] = useState(false);
+  const navigate = useNavigate();
+
+  const enviarDatos = async (email, pass) => {
+          axios.post('/get-user/', {
+            email:email,
+            password:pass
+
+        })
+      .then((response) =>{
+          console.log(response)
+      }).catch(() => {
+          alert('Error...')
+      })
+  }
 
     const { values, setFieldValue, errors, handleSubmit } = useForm({
      initialValues: {
@@ -42,14 +57,12 @@ const Login = () => {
        return errorObj;
        
      },
-     onSubmit: ({
-       values,
-       resetForm
-     }) => {
-       alert('Estas adentro');
-       resetForm();
-     }
-   })
+     onSubmit: ({ values }) => {
+      const { email, pass } = values;
+      enviarDatos(email, pass)
+      navigate('/Inicio', { replace: true });
+     }})
+    
 
    return (
     <div className="w-full h-full flex items-center justify-center h-screen">
