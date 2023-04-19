@@ -1,17 +1,38 @@
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from rest_framework.decorators import api_view
+from rest_framework.exceptions import APIException
+from .authentication import crearToken
 from .serializers import UsersSerializer
 
 from .models import User
     
+# @api_view(['POST'])
+# def getUser(request):
+#     email = request.data.get('email')
+#     password = request.data.get('password')
+#     user = User.objects.filter(email=email, password=password).first()
+#     if user is not None:
+#         return Response("200")
+#     else:
+#         return Response("400")
+
 @api_view(['POST'])
 def getUser(request):
     email = request.data.get('email')
     password = request.data.get('password')
     user = User.objects.filter(email=email, password=password).first()
+
+    if not user:
+        return ('Credenciales Invalidas!')
+    
+
     if user is not None:
-        return Response("200")
+        response = Response()
+        response.data = {
+            'token': crearToken(user.id)
+        }
+        return response
     else:
         return Response("400")
 

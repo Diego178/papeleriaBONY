@@ -28,12 +28,15 @@ const Login = () => {
               password:pass
           })
         .then((response) =>{
-            if(!response.data.includes('200')){
-              alert('Lacuenta ingresada no existe')
-            }else{
+            // if(response.data.includes('token')){
+              window.localStorage.setItem('token', response.data.token)
               navigate("/Inicio");
-              alert('inicio de sesion 100')
-            }
+              window.location.reload(true)
+              // alert('inicio de sesion 100')
+              
+            // }else{
+            //   alert('La cuenta ingresada no existe' + response.data)
+            // }
             }).catch(() => {
             alert('Error al conectarse a la base de datos')
         })
