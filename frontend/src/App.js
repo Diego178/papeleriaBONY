@@ -8,12 +8,23 @@ import Contacto from './pages/Contacto';
 import Carrito from './pages/Carrito';
 import Registrarse from './pages/Registrarse';
 import Login from './pages/Login';
+import LoginNavbar from './pages/LoginNavbar'
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [login, setLogin] = useState(true);
+
+  useEffect(() => {
+    if(window.localStorage.getItem('token')){
+        setLogin(false);
+        // window.location.reload();
+    }
+  })
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        {login ? <Navbar /> : <LoginNavbar />}
           <Routes>
             <Route path="/Inicio" element={<Inicio />} />
             <Route path="/Ofertas" element={<Ofertas />} />
