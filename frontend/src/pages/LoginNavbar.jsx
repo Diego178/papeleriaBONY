@@ -33,6 +33,16 @@ function LoginNavbar() {
                     className="w-14 h-12 px-3 py-2"  
                     src={imagen(`./perfil.png`)}/>
                 </button>
+                {/* <MDBDropdown>
+                  <MDBDropdownToggle tag='a' className='nav-link' role='button'>
+                    {/* <img src={IconPerfil} alt="logo" width="40" height="40" /> */}
+                  {/* </MDBDropdownToggle>
+                  <MDBDropdownMenu>
+                    <MDBDropdownItem link href='/logIn'>Iniciar Sesión</MDBDropdownItem>
+                    <MDBDropdownItem link href='/signUp'>Crear cuenta</MDBDropdownItem>
+                    <MDBDropdownItem link href='/cupones'>Cupones</MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown> */} 
                 <button 
                 type="submit" 
                 id="button"
@@ -41,9 +51,9 @@ function LoginNavbar() {
                     window.location.reload(true)
                   }
                 }
-                className="bg-gray-900 text-white rounded-md text-sm font-large hover:bg-gray-700">
+                 className="bg-gray-900 text-white rounded-md text-sm font-large hover:bg-gray-700">
                 Cerrar Sesion
-                </button>
+                </button> 
 
                 <Link to='/Carrito'>
                   <img src={imagen(`./carrito.png`)}width="50"/>

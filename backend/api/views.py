@@ -7,17 +7,14 @@ from .serializers import UsersSerializer
 
 from .models import User
     
-# @api_view(['POST'])
-# def getUser(request):
-#     email = request.data.get('email')
-#     password = request.data.get('password')
-#     user = User.objects.filter(email=email, password=password).first()
-#     if user is not None:
-#         return Response("200")
-#     else:
-#         return Response("400")
+@api_view(['GET'])
+def getUsers(request):
+    user = User.objects.all();
+    serializer = UsersSerializer(user, many = True)
+    return Response(serializer.data)
+    
 
-@api_view(['POST'])
+@api_view(['GET'])
 def getUser(request):
     email = request.data.get('email')
     password = request.data.get('password')
@@ -47,7 +44,9 @@ def postUser(request):
     user = User.objects.create(
         name = data['name'],
         email = data['email'],
-        password = data['password']
+        password = data['password'],
+        phone = data['phone'],
+        direccion = data['direccion']
     )
         
     serializer = UsersSerializer(user, many = False)

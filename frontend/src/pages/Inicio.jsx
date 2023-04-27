@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
+import Carrusel from './Carrusel'
 
 const Inicio = () => {
   return (
-      <div>Esto es el inicio</div>
-
+    <>
+      <Carrusel />
+    </>
   )
 }
 

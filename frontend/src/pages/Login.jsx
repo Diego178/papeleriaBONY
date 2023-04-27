@@ -23,7 +23,7 @@ const Login = () => {
       }
     }
     const enviarDatos = async (email, pass) => {
-            axios.post('/get-user/', {
+            axios.get('/cuentas/login/', {
               email:email,
               password:pass
           })
@@ -37,8 +37,8 @@ const Login = () => {
             // }else{
             //   alert('La cuenta ingresada no existe' + response.data)
             // }
-            }).catch(() => {
-            alert('Error al conectarse a la base de datos')
+            }).catch((e) => {
+            alert(e)
         })
     }
       //Manejadores del Email
