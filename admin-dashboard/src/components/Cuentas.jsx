@@ -72,6 +72,30 @@ function Cuentas() {
     })
   }
 
+  const handleDireccion = (e) => {
+    setRecord({
+        ...record, 
+        direccion: e.target.value
+    })
+  }
+
+  const handlePassword = (e) => {
+    setRecord({
+        ...record, 
+        password: e.target.value
+    })
+  }
+
+  const handleOpcionAdmin = (e) => {
+    setRecord({
+      ...record, 
+      isAdmin: e.target.value
+  })
+  console.log(record.isAdmin);
+    // setOption(event.target.value);
+    // console.log({opcion});
+  };
+
   //Cambiadores del estado del modal form
 
   const handleClose = () => {
@@ -83,9 +107,26 @@ function Cuentas() {
   }
 
   const handleSaveChanges = async ()=> {
-      //await handleUpdate(record.id, {id: record.id, name: record.name, addres: record.addres, salary: record.salary});
+      await handleUpdate(record.id, {id: record.id, name: record.name, email: record.email, phone: record.phone, isAdmin: record.isAdmin, direccion: "Xalapa", password: "perros12"});
       handleClose();
   }
+
+  const handleUpdate = async (id, value) => {
+    console.log(value);
+    return axios.put(`/cuentas/${id}/`, value)
+    .then((response) =>{
+        const { data } = response;
+        const cuentasNuevas = cuentas.map (cuenta => {
+            if (cuenta.id === id ) {
+                return data;
+            }
+            return cuenta;
+        })
+        setCuentas(cuentasNuevas)
+    }).catch(() => {
+        alert('Error...')
+    })
+}
     
 
   return (
@@ -103,7 +144,7 @@ function Cuentas() {
               {"Telefono: "+cuenta.phone+" "}
               {cuenta.isAdmin ? "La cuenta es admin " : "La cuenta es comprador "}
                 
-
+              
               <div>
                 <FaEdit 
                   onClick={() => {setRecord(cuenta); setShow(true)}}
@@ -147,10 +188,24 @@ function Cuentas() {
             value={record ? record.phone: ''}
             onChange={handlePhone}
           />
-          <Form.Select>
-            <option>Admin</option>
-            <option>Comprador</option>
+          Direccion:
+          <FormControl
+            value={record ? record.direccion: ''}
+            onChange={handleDireccion}
+          />
+          Password:
+          <FormControl
+            type='password'
+            value={record ? record.password: ''}
+            onChange={handlePassword}
+          />
+
+          <Form.Select defaultValue={record && record.isAdmin ? 'true' : 'false'} onChange={handleOpcionAdmin}>
+            <option value={false}>Normal</option>
+            <option value={true}>Administrador</option> 
         </Form.Select>
+
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant='dark' onClick={handleClose}>

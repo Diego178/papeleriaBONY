@@ -41,16 +41,20 @@ const Navbar = () => {
             <div className="center">
                 <div className={menu_class}>
                     <Link className="boton-menu"
-                    to='./Cuentas'>Cuentas</Link>
+                    to='./Cuentas'
+                    key="Cuentas">Cuentas</Link>
 
                     <Link className="boton-menu"
-                    to='./Productos'>Productos</Link>
+                    to='./Productos'
+                    key="Productos">Productos</Link>
 
                     <Link className="boton-menu"
-                    to='./Pedidos'>Pedidos</Link>
+                    to='./Pedidos'
+                    key="Pedidos">Pedidos</Link>
 
                     <Link className="boton-menu"
-                    to='./Promociones'>Promociones</Link>
+                    to='./Promociones'
+                    key="Promociones">Promociones</Link>
 
                 </div >
                         <div>

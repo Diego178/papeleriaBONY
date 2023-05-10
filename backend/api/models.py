@@ -15,3 +15,12 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+
+class Producto(models.Model):
+    nombre=models.CharField(max_length=30)
+    descripcion=models.CharField(max_length=250)
+    precio=models.FloatField()
+    cantidad=models.IntegerField()
+    categoria=models.CharField(max_length=20)
+    imagen=models.URLField(max_length=350)
