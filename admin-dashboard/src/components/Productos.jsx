@@ -14,6 +14,8 @@ function Productos() {
   const [record, setRecord] = useState(null);
   const [show, setShow] = useState(false);
   const [mostrar, setMostrar] = useState(false);
+  const [mostrarModalPost, setMostrarModalPost] = useState(false);
+  const [productoPost, setProductoPost] = useState(null);
 
   //Trae los datos de la DB
   useEffect(() =>{
@@ -112,10 +114,38 @@ const handleUpdate = async (id, value) => {
 }
 
 
+const handleCloseModalPost = () => {
+  setMostrarModalPost(false)
+}
+
+const handleGuardarPost = async ()=> {
+  handlePost({nombre: record.nombre, descripcion: record.descripcion, precio: record.precio, cantidad: record.cantidad, categoria: record.categoria, imagen: record.imagen});
+  handleCloseModalPost();
+}
+
+const handlePost = async (value) => {
+  console.log(value);
+  return axios.post(`/productos/post/`, value)
+  .then((response) =>{
+      const { data } = response;
+      setProductos([
+        ...productos,
+        data
+    ])
+
+  }).catch(() => {
+      alert('Error...')
+  })
+}
+
+
 
 
   return (
     <>
+    <Button 
+    onClick={() => {setRecord(productoPost); setMostrarModalPost(true)}}>
+      Agregar producto</Button>
       <ListGroup>
         {productos.map(producto => {
           return (
@@ -152,7 +182,7 @@ const handleUpdate = async (id, value) => {
       <Modal show={show} onHide={handleClose}>
         <ModalHeader closeButton>
           <Modal.Title>
-            Editar Cuenta
+            Editar Producto
          </Modal.Title>
         </ModalHeader>
         <Modal.Body>
@@ -220,6 +250,61 @@ const handleUpdate = async (id, value) => {
       </Button>
       </Modal.Footer>
     </Modal>
+
+    {/* Modal formulario Post producto */}
+    <Modal show={mostrarModalPost} onHide={handleCloseModalPost}>
+        <ModalHeader closeButton>
+          <Modal.Title>
+            Crear Producto
+         </Modal.Title>
+        </ModalHeader>
+        <Modal.Body>
+          {/* ID: 
+          <FormControl
+            value={record ? record.id: ''}
+            onChange={handleId}/> */}
+            Nombre:
+          <FormControl
+            value={record ?record.nombre: '' }
+            onChange={handleNombre}
+          />
+          Precio:
+          <FormControl
+            value={record ? record.precio: '' }
+            onChange={handlePrecio}
+          />
+          Cantidad:
+          <FormControl
+            value={record ? record.cantidad: ''}
+            onChange={handleCantidad}
+          />
+          Categoria:
+          <FormControl
+            value={record ? record.categoria: ''}
+            onChange={handleCategoria}
+          />
+          Descripcion:
+          <FormControl
+            value={record ? record.descripcion: ''}
+            onChange={handleDescripcion}
+          />
+
+          Imagen:
+          <FormControl
+            value={record ? record.imagen: ''}
+            onChange={handleImagen}
+          />
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='dark' onClick={handleCloseModalPost}>
+            Cerrar
+          </Button>
+          <Button variant='dark' onClick={handleGuardarPost}>
+            Guardar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   )
 }

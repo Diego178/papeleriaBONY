@@ -16,27 +16,18 @@ const Login = () => {
     const comprobarValores = (event) => {
       if(password.length > 7){
         event.preventDefault();
-        enviarDatos(email, password);
+        enviarDatos({email: email, password: password});
       }else{
         alert('Los valores no son correctos')
         event.preventDefault();
       }
     }
-    const enviarDatos = async (email, pass) => {
-            axios.get('/cuentas/login/', {
-              email:email,
-              password:pass
-          })
+    const enviarDatos = async (values) => {
+            axios.post('/cuentas/login/', values)
         .then((response) =>{
-            // if(response.data.includes('token')){
               window.localStorage.setItem('token', response.data.token)
               navigate("/Inicio");
               window.location.reload(true)
-              // alert('inicio de sesion 100')
-              
-            // }else{
-            //   alert('La cuenta ingresada no existe' + response.data)
-            // }
             }).catch((e) => {
             alert(e)
         })

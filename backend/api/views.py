@@ -14,7 +14,7 @@ def getUsers(request):
     return Response(serializer.data)
     
 
-@api_view(['GET'])
+@api_view(['POST'])
 def getUser(request):
     email = request.data.get('email')
     password = request.data.get('password')
