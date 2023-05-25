@@ -57,7 +57,7 @@ const Navbar = () => {
                     key="Promociones">Promociones</Link>
 
                 </div >
-                        <div>
+                        
                             <Routes>
                                 <Route path="/Cuentas" element={<Cuentas />} />
                                 <Route path="/Pedidos" element={<Pedidos />} />
@@ -65,7 +65,7 @@ const Navbar = () => {
                                 <Route path="/Promociones" element={<Promociones />} />
                                 <Route path="*" element={<h1>Not Found</h1>} />
                             </Routes>
-                        </div>
+                       
             </div>
             
         </div>

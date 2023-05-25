@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'universal-cookie';
 
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msjErrorPass, setMsjErrorPass] = useState('');
+    const cookies = new Cookies();
     const navigate = useNavigate();
 
 
@@ -26,6 +27,7 @@ const Login = () => {
             axios.post('/cuentas/login/', values)
         .then((response) =>{
               window.localStorage.setItem('token', response.data.token)
+              cookies.set('id', response.data.id, { path: '/' });
               navigate("/Inicio");
               window.location.reload(true)
             }).catch((e) => {

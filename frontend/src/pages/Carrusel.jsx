@@ -6,7 +6,8 @@ const Carrusel = () => {
  
 
     return (
-        <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
+      <div className='carruselMenu'>
+        <div id="carouselExampleInterval" className="carousel slide carruselMenu" data-bs-ride="carousel">
   <div className="carousel-inner">
     <div className="carousel-item active" data-bs-interval="10000">
       <img src={imagen(`./slider1.png`)} className="d-block w-100" alt="..."/>
@@ -26,6 +27,8 @@ const Carrusel = () => {
     <span className="carousel-control-next-icon" aria-hidden="true"></span>
     <span className="visually-hidden">Next</span>
   </button>
+</div>
+
 </div>
     )
 }

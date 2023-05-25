@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import '../styles/productos.css';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
@@ -7,15 +8,25 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
 import axios from 'axios';
+import ModarlError from './ModarlError';
+
 
 function Productos() {
-
+  //recide los productos de la base de datos
   const [productos, setProductos] = useState([]);
   const [record, setRecord] = useState(null);
+  //maneja el formulario editar producto
   const [show, setShow] = useState(false);
+  //maneja el modal delete (advertencia)
   const [mostrar, setMostrar] = useState(false);
+  //maneja el modal de post formulario
   const [mostrarModalPost, setMostrarModalPost] = useState(false);
+  //guarda el producto que se posteara
   const [productoPost, setProductoPost] = useState(null);
+  const [errores, setErrores] = useState('');
+  const [showModalError, setShowModalError] = useState(false)
+
+
 
   //Trae los datos de la DB
   useEffect(() =>{
@@ -88,7 +99,7 @@ function Productos() {
   }
 
   const handleSaveChanges = async ()=> {
-    await handleUpdate(record.id, {id: record.id, name: record.name, email: record.email, phone: record.phone, isAdmin: record.isAdmin, direccion: "Xalapa", password: "perros12"});
+    await handleUpdate(record.id, {id: record.id, nombre: record.nombre, precio: record.precio, cantidad: record.cantidad, categoria: record.categoria, descripcion: record.descripcion, imagen: record.imagen});
     handleClose();
 }
 
@@ -98,7 +109,7 @@ const handleDelete = (id) => {
 
 const handleUpdate = async (id, value) => {
   console.log(value);
-  return axios.put(`/productos/${id}/`, value)
+  return axios.put(`/productos/put/${id}/`, value)
   .then((response) =>{
       const { data } = response;
       const productosNuevos = productos.map (producto => {
@@ -118,9 +129,27 @@ const handleCloseModalPost = () => {
   setMostrarModalPost(false)
 }
 
+const handleCloseModalError = () => {
+  setShowModalError(!showModalError);
+}
+
 const handleGuardarPost = async ()=> {
-  handlePost({nombre: record.nombre, descripcion: record.descripcion, precio: record.precio, cantidad: record.cantidad, categoria: record.categoria, imagen: record.imagen});
-  handleCloseModalPost();
+  if(comprobar()){
+    handlePost({nombre: record.nombre, descripcion: record.descripcion, precio: record.precio, cantidad: record.cantidad, categoria: record.categoria, imagen: record.imagen});
+    handleCloseModalPost();
+  }
+}
+
+function comprobar() {
+  if (!record) {
+    console.log(record+" entro");
+    setShowModalError(true);
+    setErrores('Error, no existen datos ingresados');
+    return false;
+  }
+  else{
+    return true;
+  }
 }
 
 const handlePost = async (value) => {
@@ -142,10 +171,21 @@ const handlePost = async (value) => {
 
 
   return (
-    <>
-    <Button 
-    onClick={() => {setRecord(productoPost); setMostrarModalPost(true)}}>
-      Agregar producto</Button>
+    <div className='contenido'>
+
+      <div className='top '>
+
+        <h1>
+          Lista de productos
+        </h1>
+        <Button 
+          className="boton-agregar"
+          onClick={() => {setRecord(productoPost); setMostrarModalPost(true)}}>
+        Agregar producto</Button>
+      </div>
+    
+
+
       <ListGroup>
         {productos.map(producto => {
           return (
@@ -265,7 +305,7 @@ const handlePost = async (value) => {
             onChange={handleId}/> */}
             Nombre:
           <FormControl
-            value={record ?record.nombre: '' }
+            value={record ? record.nombre : '' }
             onChange={handleNombre}
           />
           Precio:
@@ -305,7 +345,9 @@ const handlePost = async (value) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+
+      <ModarlError show={showModalError} onClose={handleCloseModalError}> {errores} </ModarlError>
+    </div>
   )
 }
 

@@ -24,3 +24,29 @@ class Producto(models.Model):
     cantidad=models.IntegerField()
     categoria=models.CharField(max_length=20)
     imagen=models.URLField(max_length=350)
+
+
+class Carrito(models.Model):
+    id_user = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        blank=False
+    )
+    total = models.FloatField()
+
+
+class Carrito_Producto(models.Model):
+    id_carrito = models.ForeignKey(
+        Carrito,
+        on_delete=models.PROTECT,
+        blank=False,
+        default=0
+    )
+    id_producto = models.ForeignKey(
+        Producto,
+        on_delete=models.PROTECT,
+        blank=False,
+        default=0
+    )
+    nombre = models.CharField(max_length=30)
+    cantidad = models.IntegerField()

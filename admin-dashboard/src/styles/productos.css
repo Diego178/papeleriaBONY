@@ -1,0 +1,27 @@
+.boton-agregar{
+    align-self: center;
+    height: 3em;
+}
+
+.contenido {
+    display: block;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.top {
+    flex: auto;
+    height: 5em;
+    width: 1000px;
+    display: flex;
+    justify-content: space-between
+}
+
+h1 {
+    align-self: center;
+    display: block;
+    align-content: flex-start;
+}

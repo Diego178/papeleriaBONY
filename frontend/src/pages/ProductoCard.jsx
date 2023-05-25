@@ -8,6 +8,7 @@ import {
 
   import {MDBContainer,MDBRow} from "mdb-react-ui-kit";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 function ProductoCard(props) {
@@ -24,15 +25,21 @@ function ProductoCard(props) {
     })
   }, [])
 
+  const handleClic = () =>{
+
+  }
+
 
 
   return (
-    <div>
+    <div >
+      
 
-      <MDBContainer fluid className="my-5">
+      <MDBContainer fluid className="my-5" onClick={handleClic} >
           <MDBRow>
               {productos.map(producto => (
                 <MDBCol md="2" lg="2" className="mb-3 mb-lg-0">
+                  <Link to={`/Producto/${producto.id}`}>
                 <MDBCard>
                     <MDBCardImage
                       src={producto.imagen}
@@ -61,20 +68,12 @@ function ProductoCard(props) {
                           Disponibles: <span className="fw-bold">{producto.cantidad}</span>
                         </p>
                       </div>
-                  <button 
-                    // type="b" 
-                    id="button"
-                    // onClick={event => {
-                    //     comprobarValores(event);
-                    //     }
-                    // }
-                    className="inline-flex w-fit justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-                  >Agregar al carrito</button>
                     </MDBCardBody>
                   </MDBCard>
+                  </Link>
                   </MDBCol>
                 
-              ))};
+              ))}
           </MDBRow>
       </MDBContainer>
 

@@ -6,8 +6,8 @@ import ProductoCard from './ProductoCard'
 const Inicio = () => {
   return (
     <>
-      <Carrusel />
-      <ProductoCard />
+      {/* <Carrusel /> */}
+      <ProductoCard/>
     </>
   )
 }
