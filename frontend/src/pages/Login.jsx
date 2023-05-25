@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'universal-cookie';
 
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msjErrorPass, setMsjErrorPass] = useState('');
+    const cookies = new Cookies();
     const navigate = useNavigate();
 
 
@@ -16,29 +17,21 @@ const Login = () => {
     const comprobarValores = (event) => {
       if(password.length > 7){
         event.preventDefault();
-        enviarDatos(email, password);
+        enviarDatos({email: email, password: password});
       }else{
         alert('Los valores no son correctos')
         event.preventDefault();
       }
     }
-    const enviarDatos = async (email, pass) => {
-            axios.post('/get-user/', {
-              email:email,
-              password:pass
-          })
+    const enviarDatos = async (values) => {
+            axios.post('/cuentas/login/', values)
         .then((response) =>{
-            // if(response.data.includes('token')){
               window.localStorage.setItem('token', response.data.token)
+              cookies.set('id', response.data.id, { path: '/' });
               navigate("/Inicio");
               window.location.reload(true)
-              // alert('inicio de sesion 100')
-              
-            // }else{
-            //   alert('La cuenta ingresada no existe' + response.data)
-            // }
-            }).catch(() => {
-            alert('Error al conectarse a la base de datos')
+            }).catch((e) => {
+            alert(e)
         })
     }
       //Manejadores del Email
