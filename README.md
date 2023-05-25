@@ -7,9 +7,14 @@ En caso de tener errores:
 -pip3 install psycopg2
 
 
+
 create schema bony;
 
 CREATE USER 'admin'@'localhost' IDENTIFIED BY '1234';
 GRANT ALL PRIVILEGES ON *.* TO 'nombre_usuario'@'localhost';
 
 sudo apt-get install libmysqlclient-dev
+
+Instalar tailwind
+-npm install -D tailwindcss
+
