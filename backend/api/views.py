@@ -24,7 +24,6 @@ def getUser(request):
 
     if not user:
         return ('Credenciales Invalidas!')
-    
 
     if user is not None:
         response = Response()
@@ -146,8 +145,10 @@ def postCarrito(request):
 
 #Obtener un carrito en especifico con el id_usuario
 @api_view(['GET'])
-def getCarrito(request, pk):
+def getCarrito(request, pk, token):
     carrito = Carrito.objects.filter(id_user=pk).first()
+    user = User.objects.get(token=token)
+
 
     if not carrito:
         return ('Carrito no existe!')

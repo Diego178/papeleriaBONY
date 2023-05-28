@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import LoginNavbar from './pages/LoginNavbar'
 import Producto from './pages/Producto'
 import { useEffect, useState } from 'react';
+import Footer from './pages/Footer';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
+          <Footer />
       </Router>
     </div>
   );
