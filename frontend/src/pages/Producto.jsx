@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useParams, Link } from "react-router-dom";
-import Form from 'react-bootstrap/Form';
+import { Form, Modal, Button } from 'react-bootstrap';
 import axios from 'axios'
 import Cookies from "universal-cookie";
 const imagen = require.context('../assets/navbar/', true);
@@ -9,13 +9,13 @@ const Producto = () => {
     const {id} = useParams()
     const [producto, setProducto] = useState(null)
     const [cantidad, setCantidad] = useState(0);
+    const [show, setShow] = useState(false)
     const cockies = new Cookies()
 
     useEffect(() => {
         axios.get(`/productos/${id}`)
           .then(response => {
             setProducto(response.data);
-            console.log(id);
           })
           .catch(error => {
             console.error("Error al obtener el producto:", error);
@@ -35,61 +35,87 @@ const Producto = () => {
           .catch(error => {
             console.error("Error al obtener el producto:", error);
           });
-        alert('producto agregado correctamente...')
       }
 
       const handleCantidad = (event) => {
-          setCantidad(event.target.value)
+        setCantidad(event.target.value)
+      }
+
+      const handleShow = () => {
+        setShow(true)
+      }
+
+      const handleClic = () => {
+        setShow(true);
+        handleAgregarProducto();
       }
 
       
 
     return(
 
-        <div className="justify-self-start border-solid border black rounded-3xl border-2 mx-10 my-3">
+      <div className="flex justify-center w-full pb-80 pt-12">
+
+        <div className=" border-solid border black rounded-3xl border-2 justify-self-center w-4/6 ">
             {producto &&
             <div className="flex flex-row ">
-                <div className="mx-10 my-10 ">
-                    <img src={producto.imagen} alt="" className="h-5/6 w-6/6 object-cover object-center border-solid border black rounded-3xl border-2"  />
+                <div className="mx-2 my-2 ">
+                    <img src={producto.imagen} alt="" className="h-6/6 max-w-md object-cover object-center "  />
                 </div>
-                <div className="flex flex-col w-5/6 h-6/6 justify-stretch">
-                    <h1 className="justify-self-start">
+                <div className="flex flex-col w-6/6 h-6/6 justify-self-end pl-20">
+                    <h1 className="justify-self-start text-5xl pt-10 font-bold" style={{ textAlign: 'left' }}>
                         {producto.nombre}
                     </h1>
-                    <p className="justify-start">
-                    {producto.precio}
-                    </p>
-                    <p>
-                    {producto.categoria}
-                    </p>
-                    <p>
-                    {producto.descripcion}
-                    </p>
-                    <Form.Select aria-label="Default select example" 
-                    className="w-25"
-                    value={cantidad}
-                    onChange={handleCantidad}
-                    >
-                      {Array.from({ length: producto.cantidad }, (_, index) => (
-                        <option key={index + 1} value={index + 1}>{index + 1}</option>
-                      ))}
-                    </Form.Select>
-                    <p>
-                    {producto.cantidad}
-                    </p>
-                    <Link to='/Carrito'
-                    onClick={handleAgregarProducto}
-                    className="w-40 flex text-gray-300 bg-gray-600 hover:bg-gray-700 hover:text-white rounded-md px-2 py-2 text-md font-medium">
-                        <p>Agregar al carrito</p>
-                    <img src={imagen(`./carrito.png`)}width="50" alt="" />
-                    </Link>
 
+                    <h1 className="justify-start text-xl pt-2 pb-2" style={{ textAlign: 'left' }}>
+                        ${producto.precio}
+                    </h1>
+                      <h1 className="text-lg" style={{ textAlign: 'left' }}>
+                          Categoria: {producto.categoria}
+                      </h1>
+
+                    <h1 className="pt-2 pb-3" style={{ textAlign: 'left' }} >
+                        {producto.descripcion}
+                    </h1>
+
+                    <Form.Select aria-label="" 
+                        className="w-20"
+                        value={cantidad}
+                        onChange={handleCantidad}>
+                          {Array.from({ length: producto.cantidad }, (_, index) => (
+                            <option key={index + 1} value={index + 1}>{index + 1}</option>
+                          ))}
+                    </Form.Select>
+                    
+                    <br/>
+
+                    <Link to='/Carrito'
+                        onClick={handleClic}
+                        className="w-40 flex text-black-300 bg-sky-500 hover:bg-gray-700 hover:text-white rounded-md justify-center items-center">
+                        <h1 className="text-lg" >Agregar al carrito</h1>
+                          <img src={imagen(`./carrito.png`)}width="50" alt="" />
+                    </Link>
+ 
                 </div>
              </div>
              }
 
               
         </div>
+          <Modal show={show}>
+             <Modal.Title>
+              Se agrego el producto correctamente al carrito
+             </Modal.Title>
+             <Modal.Footer>
+                <Button className="bg-sky-600 text-white hover:bg-sky-300" onClick={handleShow} >
+                  aceptar
+                </Button>
+             </Modal.Footer>
+          </Modal>
+
+        </div>
+
+        
         
     )
 }

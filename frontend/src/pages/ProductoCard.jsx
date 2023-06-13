@@ -19,7 +19,6 @@ function ProductoCard(props) {
     axios.get('/productos/')
     .then((response) => {
       setProductos(response.data)
-      console.log(productos);
     }).catch(() => {
       alert('Algo fue mal...')
     })
@@ -35,16 +34,17 @@ function ProductoCard(props) {
     <div >
       
 
-      <MDBContainer fluid className="my-5" onClick={handleClic} >
+      <MDBContainer fluid className="my-5 flex-wrap" onClick={handleClic} >
           <MDBRow>
               {productos.map(producto => (
-                <MDBCol md="2" lg="2" className="mb-3 mb-lg-0">
+                <MDBCol key={producto.id} md="2" lg="2" className="mb-3 mb-lg-0">
                   <Link to={`/Producto/${producto.id}`}>
-                <MDBCard>
+                <MDBCard className='my-1' >
                     <MDBCardImage
+                    className=''
                       src={producto.imagen}
                       position="top"
-                      alt="Laptop"
+                      alt="Producto"
                     />
                     <MDBCardBody>
                       <div className="d-flex justify-content-between">

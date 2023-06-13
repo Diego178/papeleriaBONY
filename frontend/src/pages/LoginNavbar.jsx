@@ -7,12 +7,12 @@ function LoginNavbar() {
 
 
   return (
-    <nav className="bg-gray-800 sticky">
+    <nav className="bg-gray-800 sticky z-10">
         <div className="relative flex h-17 items-center justify-between">
           <Link to='/Inicio'>
 
             <img 
-            className="w-18 h-14 mx-auto py-1"  
+            className="w-18 h-14 mx-3 py-1"  
             src={imagen(`./icono.png`)} alt=''/>
 
           </Link>
@@ -32,7 +32,7 @@ function LoginNavbar() {
             <div className="flex-1 align-content: flex-end">
               <div className="flex justify-end space-x-4 my-2">
 
-                <Dropdown>
+                <Dropdown className=''>
                   <Dropdown.Toggle className='h-4/6' variant="success" id="dropdown-basic">
                   <img 
                     className="w-11 h-9 px-2 py-1"  

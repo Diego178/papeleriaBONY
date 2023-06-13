@@ -40,43 +40,44 @@ const ProductoCarrito = (props) => {
 
     return(
       <>
-        <MDBRow md="2" lg="2" className="mb-3 mb-lg-0">
-                <MDBCard key={producto.id} className="flex flex-row">
+        <MDBRow md="2" lg="2" className="">
+                <MDBCard key={producto.id} className="flex flex-row h-50 w-full">
                     <MDBCardImage
-                    className="w-1/6 "
+                    className="w-1/6"
                       src={producto.imagen}
                       position="top"
                       alt="Laptop"
                     />
-                    <MDBCardBody>
-                      <div className="d-flex justify-content-between">
-                        <p className="small">
-                          <a href="#!" className="text-muted">
-                            {props.categoria}
-                          </a>
+                    <MDBCardBody className="flex flex-col justify-content-start" >
+
+                        <h1 className="w-2/6 text-2xl font-bold" style={{ textAlign: 'left' }}>
+                          {producto.nombre}
+                        </h1>
+
+                        <h1 className="w-2/6 text-xl" style={{ textAlign: 'left' }}>
+                          Precio unitario: ${producto.precio}
+                        </h1>
+
+                        <h1 className="w-2/6 text-xl" style={{ textAlign: 'left' }}>
+                          Precio neto: ${producto.precio * props.cantidad}
+                        </h1>
+
+                        <h1 className="w-2/6 text-lg" style={{ textAlign: 'left' }}>
+                          {producto.categoria}
+                        </h1>
+                        <p className="w-2/6" style={{ textAlign: 'left' }}>
+                          Cantidad: {props.cantidad}
                         </p>
-                      </div>
-        
-                      <div className="d-flex justify-content-between mb-3">
-                        <h5>{props.id_carrito}</h5>
-                        <h5 className="mb-0">{producto.nombre}</h5>
-                        <h1>Precio unitario:</h1>
-                        <h5 className="text-dark mb-0">${producto.precio}</h5>
-                        <h1>Precio neto:</h1>
-                        <h5 className="text-dark mb-0">${producto.precio * props.cantidad}</h5>
-                      </div>
-        
-                      <div className="d-flex justify-content-between mb-2">
-                        <p className="text-muted mb-0">
-                          Cantidad: <span className="fw-bold">{props.cantidad}</span>
-                        </p>
-                      </div>
-                      <button
-                      className="h-10 w-20 hover:bg-gray-700 bg-red-300 rounded-lg"
+
+                    </MDBCardBody>
+                    <div className="self-center h-full">
+                    <button
+                      className="h-10 w-20 text-white hover:bg-red-300 bg-red-700 rounded-lg"
                       onClick={handleShow}>
                         borrar
                       </button>
-                    </MDBCardBody>
+                    </div>
+                    
   
                   </MDBCard>
                   </MDBRow>

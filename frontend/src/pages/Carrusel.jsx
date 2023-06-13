@@ -6,7 +6,7 @@ const Carrusel = () => {
  
 
     return (
-      <div className='carruselMenu'>
+      <div className='z-0'>
         <div id="carouselExampleInterval" className="carousel slide carruselMenu" data-bs-ride="carousel">
   <div className="carousel-inner">
     <div className="carousel-item active" data-bs-interval="10000">

@@ -124,6 +124,32 @@ const handleUpdate = async (id, value) => {
   })
 }
 
+  function comprobarPrecio(numero){
+    if (isNaN(numero)){
+        setShowModalError(true);
+        setErrores("Ups... el precio ingresado no es un número.");
+        return false;
+    } else {
+        return true;
+    }
+  }
+
+  function comprobarCantidad(numero){
+    if (isNaN(numero)){
+        setShowModalError(true);
+        setErrores("Ups... la cantidad ingresada no es un número.");
+        return false;
+    } else {
+        if (numero % 1 === 0) {
+            return true;
+        } else {
+            setShowModalError(true);
+            setErrores('Cantidad no valida, tiene que se numero entero');
+            return false;
+        }
+    }
+  }
+
 
 const handleCloseModalPost = () => {
   setMostrarModalPost(false)
@@ -145,6 +171,12 @@ function comprobar() {
     console.log(record+" entro");
     setShowModalError(true);
     setErrores('Error, no existen datos ingresados');
+    return false;
+  }
+  if (!comprobarCantidad(record.cantidad)){
+    return false;
+  }
+  if (!comprobarPrecio(record.precio)){
     return false;
   }
   else{
