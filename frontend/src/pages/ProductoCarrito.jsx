@@ -50,19 +50,19 @@ const ProductoCarrito = (props) => {
                     />
                     <MDBCardBody className="flex flex-col justify-content-start" >
 
-                        <h1 className="w-2/6 text-lg font-bold" style={{ textAlign: 'left' }}>
+                        <h1 className="w-2/6 text-2xl font-bold" style={{ textAlign: 'left' }}>
                           {producto.nombre}
                         </h1>
 
-                        <h1 className="w-2/6" style={{ textAlign: 'left' }}>
+                        <h1 className="w-2/6 text-xl" style={{ textAlign: 'left' }}>
                           Precio unitario: ${producto.precio}
                         </h1>
 
-                        <h1 className="w-2/6" style={{ textAlign: 'left' }}>
+                        <h1 className="w-2/6 text-xl" style={{ textAlign: 'left' }}>
                           Precio neto: ${producto.precio * props.cantidad}
                         </h1>
 
-                        <h1 className="w-2/6" style={{ textAlign: 'left' }}>
+                        <h1 className="w-2/6 text-lg" style={{ textAlign: 'left' }}>
                           {producto.categoria}
                         </h1>
                         <p className="w-2/6" style={{ textAlign: 'left' }}>

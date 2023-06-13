@@ -8,7 +8,7 @@ const imagen = require.context('../assets/navbar/', true);
 const Producto = () => {
     const {id} = useParams()
     const [producto, setProducto] = useState(null)
-    const [cantidad, setCantidad] = useState(1);
+    const [cantidad, setCantidad] = useState(0);
     const [show, setShow] = useState(false)
     const cockies = new Cookies()
 
@@ -91,11 +91,11 @@ const Producto = () => {
 
                     <Link to='/Carrito'
                         onClick={handleClic}
-                        className="w-40 flex text-black-300 bg-sky-500 hover:bg-gray-700 hover:text-white rounded-md text-md font-medium justify-center items-center">
-                        <h1>Agregar al carrito</h1>
+                        className="w-40 flex text-black-300 bg-sky-500 hover:bg-gray-700 hover:text-white rounded-md justify-center items-center">
+                        <h1 className="text-lg" >Agregar al carrito</h1>
                           <img src={imagen(`./carrito.png`)}width="50" alt="" />
                     </Link>
-
+ 
                 </div>
              </div>
              }

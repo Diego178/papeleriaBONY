@@ -21,7 +21,7 @@ function App() {
     if(window.localStorage.getItem('token')){
         setLogin(false);
     }
-  })
+  },[])
   return (
     <div className="App">
       <Router>

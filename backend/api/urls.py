@@ -29,5 +29,6 @@ urlpatterns = [
     ##Obtener los productos de un carrito enviando el id_usuario
     path('carrito_producto/<int:pk>/', views.getCarritoProducto),
 
+
     path('carrito_producto/delete/<int:pk>/', views.deleteCarritoProducto)
 ]
